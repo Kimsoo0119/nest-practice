@@ -36,11 +36,7 @@ export class BoardsController {
 
   @Get('/:id')
   getBoardBy(@Param('id') id: string): Board {
-    const found = this.boardsService.getBoardById(id);
-    if (!found) {
-      throw new NotFoundException(`Can't find Board with id ${id}`);
-    }
-    return found;
+    return this.boardsService.getBoardById(id);
   }
 
   @Patch('/:id/status')
