@@ -1,5 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { Board } from './board.model';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { Board, BoardStatus } from './board.model';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './DTO/create-board-dto';
 
@@ -25,6 +33,14 @@ export class BoardsController {
   @Get('/:id')
   getBoardBy(@Param('id') id: string): Board {
     return this.boardsService.getBoardById(id);
+  }
+
+  @Patch('/:id/status')
+  updateBOardStatus(
+    @Param('id') id: string,
+    @Body('status') status: BoardStatus,
+  ) {
+    return this.boardsService.updateBoardStatus(id, status);
   }
 
   /** 리턴값이 없으므로 void */
