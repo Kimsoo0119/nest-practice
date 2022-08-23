@@ -9,14 +9,15 @@ export class BoardsService {
   getAllBoards(): Board[] {
     return this.boards;
   }
-  createBoard(title: string, discription: string) {
+  createBoard(title: string, description: string) {
     const board: Board = {
       id: uuid(),
       title,
-      discription,
+      description,
       status: BoardStatus.PUBLIC,
     };
     this.boards.push(board);
+
     return board;
   }
 }
