@@ -5,6 +5,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UsePipes,
@@ -19,20 +20,8 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 @Controller('boards')
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
-  // @Get('/')
-  // getAllBoard(): Board[] {
-  //   return this.boardsService.getAllBoards();
-  // }
-  // /**
-  //  *
-  //  * @param createBoardDto title과 decription 만약 입력쪽 수정사항이 있으면 DTO만 변경
-  //  * @returns 생성된 Board정보 출력
-  //  */
-  // @Post()
-  // @UsePipes(ValidationPipe) //title, description empty 확인
-  // createBoard(@Body() createBoardDto: CreateBoardDto): Board {
-  //   return this.boardsService.createBoard(createBoardDto);
-  // }
+
+  /** */
   @Post()
   @UsePipes(ValidationPipe)
   createBoard(@Body() CreateBoardDto: CreateBoardDto): Promise<Board> {
@@ -43,6 +32,21 @@ export class BoardsController {
   getBoardById(@Param('id') id: number): Promise<Board> {
     return this.boardsService.getBoardById(id);
   }
+
+  @Delete('/:id')
+  deleteBoard(@Param('id', ParseIntPipe) id): Promise<void> {
+    return this.boardsService.deleteBoard(id);
+  }
+
+  // @Get('/')
+  // getAllBoard(): Board[] {
+  //   return this.boardsService.getAllBoards();
+  // }
+  // @Post()
+  // @UsePipes(ValidationPipe) //title, description empty 확인
+  // createBoard(@Body() createBoardDto: CreateBoardDto): Board {
+  //   return this.boardsService.createBoard(createBoardDto);
+  // }
   // @Get('/:id')
   // getBoardBy(@Param('id') id: string): Board {
   //   return this.boardsService.getBoardById(id);
